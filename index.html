@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Login | Ubi-lab PaymentSystem AdminTerminal</title>
 
-        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
         <style type="text/css">
             /* Override some defaults */
             html, body {
@@ -39,10 +39,42 @@
             font-weight: bold;
             color: #404040;
             }
-    </style>
+        </style>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-alert.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $("#login").click(function(){
+                    $.ajax({
+                        type: "POST",
+                        url: "/login.php",
+                        dataType: "json",
+                        data: {
+                            mail: $("#mail").val(),
+                            password: $("#pass").val()
+                        },
+                        beforeSend: function() {
+                            $("#login").addClass("disabled");
+                            $("#login").text("Confirming...");
+                        },
+                        success: function(json) {
+                            location.href("/main.php");
+                        },
+                        error: function(req, err, th) {
+                            $("#login").removeClass("disabled");
+                            $("#login").text("Sign in as Administrator");
+                            var errDiag = $("<div class=\"alert alert-block alert-error fade in\" style=\"display:none\"><a class=\"close\" data-dismiss=\"alert\" href=\"#\">&times;</a><h4 class=\"alert-heading\">Login failed</h4><p>Incorrect login or password.</p></div>");
+                            $(".container").prepend(errDiag);
+                            errDiag.fadeIn();
+                        }
+                    });
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="container">
+
             <div class="content">
                 <div class="row">
                     <div class="login-form">
@@ -50,12 +82,12 @@
                         <form action="">
                             <fieldset>
                                 <div class="clearfix">
-                                    <input type="text" placeholder="Username">
+                                    <input id="mail" type="text" placeholder="Mail">
                                 </div>
                                 <div class="clearfix">
-                                    <input type="password" placeholder="Password">
+                                    <input id="pass" type="password" placeholder="Password">
                                 </div>
-                                <button class="btn btn-danger" type="submit">Sign in as Administrator</button>
+                                <button class="btn btn-danger" type="button" id="login">Sign in as Administrator</button>
                             </fieldset>
                         </form>
                     </div>
