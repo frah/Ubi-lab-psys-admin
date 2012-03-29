@@ -1,0 +1,22 @@
+body {
+    padding-top: 50px;
+}
+.well-center {
+    text-align: center;
+}
+.required {
+    color: hotpink;
+}
+.form-search-wimg {
+    position: relative;
+}
+.form-search-wimg i {
+    position: absolute;
+    left: 10px;
+    top: 7px;
+}
+.form-search-wimg .search-query {
+    padding-left: 28px;
+    line-height: 19px;
+}
+

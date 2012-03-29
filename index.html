@@ -39,15 +39,26 @@
             font-weight: bold;
             color: #404040;
             }
+            footer {
+            text-align: center;
+            font-weight: bold;
+            }
         </style>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/bootstrap-alert.js"></script>
         <script type="text/javascript">
+            var dispErrDiag = function(mes) {
+                $("#login").removeClass("disabled");
+                $("#login").text("Sign in as Administrator");
+                var errDiag = $("<div class=\"alert alert-block alert-error fade in\" style=\"display:none\"><a class=\"close\" data-dismiss=\"alert\" href=\"#\">&times;</a><h4 class=\"alert-heading\">Login failed</h4><p>"+mes+"</p></div>");
+                $(".container").prepend(errDiag);
+                errDiag.fadeIn();
+            };
             $(function(){
                 $("#login").click(function(){
                     $.ajax({
                         type: "POST",
-                        url: "/login.php",
+                        url: "/ajax/login.php",
                         dataType: "json",
                         data: {
                             mail: $("#mail").val(),
@@ -58,14 +69,14 @@
                             $("#login").text("Confirming...");
                         },
                         success: function(json) {
-                            location.href("/main.php");
+                            if (json.comp) {
+                                location.href = "/main.php";
+                            } else {
+                                dispErrDiag(json.error_mes);
+                            }
                         },
                         error: function(req, err, th) {
-                            $("#login").removeClass("disabled");
-                            $("#login").text("Sign in as Administrator");
-                            var errDiag = $("<div class=\"alert alert-block alert-error fade in\" style=\"display:none\"><a class=\"close\" data-dismiss=\"alert\" href=\"#\">&times;</a><h4 class=\"alert-heading\">Login failed</h4><p>Incorrect login or password.</p></div>");
-                            $(".container").prepend(errDiag);
-                            errDiag.fadeIn();
+                            dispErrDiag("Response parse error. Contact to the administrator.");
                         }
                     });
                 });
@@ -93,6 +104,7 @@
                     </div>
                 </div>
             </div>
+            <!--<footer>&copy; atsushi-o 2012.</footer>-->
         </div>
     </body>
 </html>
