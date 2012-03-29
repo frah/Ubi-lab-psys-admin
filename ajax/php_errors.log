@@ -1,3 +1,0 @@
-[29-Mar-2012 14:54:59 UTC] PHP Warning:  require_once(./logging.php): failed to open stream: No such file or directory in C:\Users\atsushi-o\Dropbox\NAIST\ubi-lab\PaymentSystem\AdminTerminal\classes\dao.php on line 2
-[29-Mar-2012 14:54:59 UTC] PHP Fatal error:  require_once(): Failed opening required './logging.php' (include_path='.;C:\php\pear') in C:\Users\atsushi-o\Dropbox\NAIST\ubi-lab\PaymentSystem\AdminTerminal\classes\dao.php on line 2
-[29-Mar-2012 14:55:24 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in C:\Users\atsushi-o\Dropbox\NAIST\ubi-lab\PaymentSystem\AdminTerminal\classes\dao.php on line 35
